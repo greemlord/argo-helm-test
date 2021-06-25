@@ -1,0 +1,29 @@
+image:
+  tag: v2.35.2
+
+namespace: default
+
+clientId: app2
+
+coreapp:
+  repository: docker.whatsapp.biz/coreapp
+  hostnamePostfix: coreapp
+
+webapp:
+  repository: docker.whatsapp.biz/web
+  hostnamePostfix: webapp
+  nodePort: 30002
+
+db:
+  hostnamePostfix: webapp
+  engine: MYSQL
+  hostname: mysql-service
+  port: "3306"
+  username: root
+  password: testpass
+
+db_storage:
+  hostnamePostfix: "db_storage"
+
+media_storage:
+  hostnamePostfix: "media_storage"

@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: whatsapp-config
+data:
+  wa-db-engine: {{ .Values.db.engine | b64enc }}
+  wa-db-hostname: {{ .Values.db.hostname | b64enc }}
+  wa-db-port: {{ .Values.db.port | b64enc }}
+  wa-db-username: {{ .Values.db.username | b64enc }}
+  wa-db-password: {{ .Values.db.password | b64enc }}
+  wa-db-connection-idle-timeout: {{ .Values.db.timeout | b64enc }}
