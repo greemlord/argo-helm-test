@@ -4,6 +4,7 @@ image:
 namespace: default
 
 clientId: app2
+authToken: "wazzup_24_coreapp_token"
 
 coreapp:
   repository: docker.whatsapp.biz/coreapp

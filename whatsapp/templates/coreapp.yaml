@@ -109,6 +109,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+            - name: WA_API_KEY
+              value: {{ .Values.authToken }}
           volumeMounts:
             - name: whatsapp-media
               mountPath: "/usr/local/media_storage"
