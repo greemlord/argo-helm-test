@@ -78,6 +78,8 @@ spec:
                   key: wa-db-password
             - name: WA_WEB_SERVERNAME
               value: "{{ .Values.clientId }}-{{ .Values.webapp.hostnamePostfix }}"
+            - name: WA_API_KEY
+              value: {{ .Values.authToken }}
           volumeMounts:
             - name: whatsapp-media
               mountPath: "/usr/local/media_storage"
