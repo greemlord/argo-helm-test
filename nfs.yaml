@@ -31,3 +31,15 @@ spec:
       args:
         # Pass the paths to share to the Docker image
         - /usr/local/media_storage
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dev-whatsapp-config
+data:
+    wa-db-engine: UEdTUUw=
+    wa-db-hostname: cG9zdGdyZXMtc2VydmljZQ==
+    wa-db-password: dGVzdHBhc3M=
+    wa-db-port: NTQzMg==
+    wa-db-username: cm9vdA==
+    wa_api_key: ZXlKaGJHY2lPaUFpU0ZNeU5UWWlMQ0FpZEhsd0lqb2dJa3BYVkNKOS5leUoxYzJWeUlqb2lZV1J0YVc0aUxDSnBZWFFpT2pFMk1qVTRNak15T1RZc0ltVjRjQ0k2TVRZeU5qUXlPREE1Tml3aWQyRTZjbUZ1WkNJNklqWTBPR1pqTmpsaE5qZzNNemhqWlRKbU5EUXdNRGhqTWpNNU56QXlOV1pqSW4wLmlyazlmelFwNHZ4VWM3c2lhYXJwR1RZenhieHJhVndLbC1uYi1WcU5jZ3c=

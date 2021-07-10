@@ -88,5 +88,5 @@ spec:
       volumes:
         - name: whatsapp-media
           nfs:
-            server: nfs-service
+            server: 10.111.126.218
             path: /
