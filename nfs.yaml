@@ -15,6 +15,7 @@ spec:
     # Port 111 for UDP
     - name: udp-111
       port: 111
+      protocol: UDP
 ---
 kind: Pod
 apiVersion: v1
