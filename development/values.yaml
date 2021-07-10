@@ -1,0 +1,19 @@
+cluster:
+  namespace: development
+
+client:
+  id: app
+
+coreapp:
+  repository: docker.whatsapp.biz/coreapp
+  hostnamePostfix: coreapp
+  image:
+    tag: v2.35.2
+
+webapp:
+  repository: docker.whatsapp.biz/web
+  hostnamePostfix: webapp
+  image:
+    tag: v2.35.2
+
+config: dev-whatsapp-config

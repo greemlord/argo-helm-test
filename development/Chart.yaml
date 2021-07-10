@@ -1,0 +1,6 @@
+apiVersion: v2
+name: Wazzup whatsapp business api client chart.
+description: Chart wrapper around whatsapp wa_core and core_app containers.
+type: application
+version: 0.1.0
+appVersion: "1.16.0"

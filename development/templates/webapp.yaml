@@ -1,38 +1,36 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Values.clientId }}-{{ .Values.webapp.hostnamePostfix }}"
-  namespace: {{ .Values.namespace }}
+  name: "{{ .Values.client.id }}-{{ .Values.webapp.hostnamePostfix }}"
+  namespace: {{ .Values.cluster.namespace }}
 spec:
-  type: NodePort
   ports:
     - port: 80
       targetPort: 443
       protocol: TCP
       name: web
-      nodePort: {{ .Values.webapp.nodePort }}
   selector:
-    name: "{{ .Values.clientId }}-{{ .Values.webapp.hostnamePostfix }}"
+    name: "{{ .Values.client.id }}-{{ .Values.webapp.hostnamePostfix }}"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Values.clientId }}-{{ .Values.webapp.hostnamePostfix }}-deployment"
-  namespace: {{ .Values.namespace }}
+  name: "{{ .Values.client.id }}-{{ .Values.webapp.hostnamePostfix }}-deployment"
+  namespace: {{ .Values.cluster.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: "{{ .Values.clientId }}-{{ .Values.webapp.hostnamePostfix }}"
+      name: "{{ .Values.client.id }}-{{ .Values.webapp.hostnamePostfix }}"
   template:
     metadata:
       labels:
-        name: "{{ .Values.clientId }}-{{ .Values.webapp.hostnamePostfix }}"
+        name: "{{ .Values.client.id }}-{{ .Values.webapp.hostnamePostfix }}"
     spec:
       restartPolicy: "Always"
       containers:
         - name: whatsapp-web
-          image: "{{ .Values.webapp.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.webapp.repository }}:{{ .Values.webapp.image.tag }}"
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -46,44 +44,49 @@ spec:
               name: web
           env:
             - name: WACORE_HOSTNAME
-              value: "{{ .Values.clientId }}-{{ .Values.coreapp.hostnamePostfix }}"
+              value: "{{ .Values.client.id }}-{{ .Values.coreapp.hostnamePostfix }}"
             - name: WA_DB_ENGINE
               valueFrom:
                 secretKeyRef:
-                  name: whatsapp-config
+                  name: {{ .Values.config }}
                   key: wa-db-engine
             - name: WA_APP_MULTICONNECT
               value: '0'
             - name: WA_DB_NAME_PREFIX
-              value: "{{ .Values.clientId }}_"
+              value: "{{ .Values.client.id }}_"
             - name: WA_DB_HOSTNAME
               valueFrom:
                 secretKeyRef:
-                  name: whatsapp-config
+                  name: {{ .Values.config }}
                   key: wa-db-hostname
             - name: WA_DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: whatsapp-config
+                  name: {{ .Values.config }}
                   key: wa-db-port
             - name: WA_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: whatsapp-config
+                  name: {{ .Values.config }}
                   key: wa-db-username
             - name: WA_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: whatsapp-config
+                  name: {{ .Values.config }}
                   key: wa-db-password
             - name: WA_WEB_SERVERNAME
-              value: "{{ .Values.clientId }}-{{ .Values.webapp.hostnamePostfix }}"
+              value: "{{ .Values.client.id }}-{{ .Values.webapp.hostnamePostfix }}"
             - name: WA_API_KEY
-              value: {{ .Values.authToken }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.config }}
+                  key: wa-api-key
           volumeMounts:
             - name: whatsapp-media
               mountPath: "/usr/local/media_storage"
+              subPath: {{ .Values.client.id }}
       volumes:
         - name: whatsapp-media
-          persistentVolumeClaim:
-            claimName: media-volume-claim
+          nfs:
+            server: nfs-service
+            path: /

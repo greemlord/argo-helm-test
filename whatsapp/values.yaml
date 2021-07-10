@@ -3,7 +3,7 @@ image:
 
 namespace: default
 
-clientId: app2
+clientId: app9
 authToken: "wazzup_24_coreapp_token"
 
 coreapp:
@@ -13,7 +13,7 @@ coreapp:
 webapp:
   repository: docker.whatsapp.biz/web
   hostnamePostfix: webapp
-  nodePort: 30002
+  nodePort: 30009
 
 db:
   hostnamePostfix: webapp
